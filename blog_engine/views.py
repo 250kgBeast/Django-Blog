@@ -1,23 +1,45 @@
-from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse
 
 from .models import Post, Tag
+from .forms import PostCreateForm
 
 
-def posts_list(request):
-    posts = Post.objects.all()
-    return render(request, 'blog_engine/posts_list.html', context={'posts': posts})
+class PostsListView(ListView):
+    model = Post
+    template_name = 'blog_engine/posts_list.html'
+    context_object_name = 'posts'
 
 
-def post_detail(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    return render(request, 'blog_engine/post_detail.html', context={'post': post})
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog_engine/post_detail.html'
 
 
-def tags_list(request):
-    tags = Tag.objects.all()
-    return render(request, 'blog_engine/tags_list.html', context={'tags': tags})
+class TagsListView(ListView):
+    model = Tag
+    template_name = 'blog_engine/tags_list.html'
+    context_object_name = 'tags'
 
 
-def tag_detail(request, slug):
-    tag = Tag.objects.get(slug__exact=slug)
-    return render(request, 'blog_engine/tag_detail.html', context={'tag': tag})
+class TagDetailView(DetailView):
+    model = Tag
+    template_name = 'blog_engine/tag_detail.html'
+
+
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostCreateForm
+    template_name = 'blog_engine/post_create.html'
+
+    def get_success_url(self):
+        return reverse('post_detail', args=[self.object.slug])
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostCreateForm
+    template_name = 'blog_engine/post_create.html'
+
+    def get_success_url(self):
+        return reverse('post_detail', args=[self.object.slug])

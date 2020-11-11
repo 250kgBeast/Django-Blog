@@ -19,7 +19,7 @@ class TestModels(TestCase):
         self.assertEqual(self.post.tags.count(), 2)
 
     def test_post_absolute_url(self):
-        self.assertEqual(self.post.get_absolute_url(), f'/{self.post.slug}/')
+        self.assertEqual(self.post.get_absolute_url(), f'/post/{self.post.slug}/')
         self.assertEqual(self.tag1.get_absolute_url(), f'/tag/{self.tag1.slug}/')
         self.assertEqual(self.tag2.get_absolute_url(), f'/tag/{self.tag2.slug}/')
 
