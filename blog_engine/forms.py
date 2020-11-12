@@ -20,3 +20,13 @@ class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'body', 'tags')
+
+
+class TagCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TagCreateForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs = {'class': 'form-control'}
+
+    class Meta:
+        model = Tag
+        fields = ('title',)

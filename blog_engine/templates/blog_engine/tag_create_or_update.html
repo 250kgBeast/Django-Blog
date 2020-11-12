@@ -1,0 +1,21 @@
+{% extends 'blog_engine/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+
+                    {% if object %}
+                        <button type="submit" class="btn btn-primary">Edit Post</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary">Create Post</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

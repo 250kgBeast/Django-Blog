@@ -1,0 +1,15 @@
+{% extends 'blog_engine/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Posts with tag {{ tag.title }}:</h1>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                {% for post in posts %}
+                    {% include 'blog_engine/include/post_card.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    {% include 'blog_engine/include/pagination.html' %}
+    </div>
+{% endblock %}

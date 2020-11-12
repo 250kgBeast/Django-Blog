@@ -3,9 +3,23 @@
 {% block content %}
     <div class="container text-center">
         <h1 class="mb-5">Tags: </h1>
-         {% for tag in tags %}
-             <h3><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></h3>
-         {% endfor %}
+         <table class="table">
+             {% for tag in tags %}
+                <tr>
+                    <td>
+                        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                    </td>
+                    {% if request.user.is_staff %}
+                    <td>
+                        <a href="{% url 'tag_update' slug=tag.slug %}" class="btn btn-secondary">Update Tag</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'tag_delete' slug=tag.slug %}" class="btn btn-danger">Delete Tag</a>
+                    </td>
+                    {% endif %}
+                </tr>
+             {% endfor %}
+         </table>
     </div>
 
 {% endblock %}
