@@ -1,0 +1,16 @@
+{% extends 'blog_engine/base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <p class="text-center">
+        Are you sure you want to delete {{ post.title }}?
+        </p>
+        <div class="container text-center">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="{{ post.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" value="Delete" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

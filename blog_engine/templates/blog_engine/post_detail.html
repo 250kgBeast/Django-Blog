@@ -6,7 +6,11 @@
             <div class="col-lg-4 text-center">
                 <h1>{{ post.title }}</h1>
                 <p>{{ post.body }}</p>
-                {{ post.date_pub }}
+                <p>{{ post.date_pub }}</p>
+                {% if request.user.is_staff %}
+                <a href='{% url 'post_update' slug=post.slug %}' class="btn btn-secondary">Edit Post</a>
+                <a href='{% url 'post_delete' slug=post.slug %}' class="btn btn-danger">Delete Post</a>
+                {% endif %}
             </div>
         </div>
     </div>
