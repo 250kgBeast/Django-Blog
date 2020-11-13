@@ -42,4 +42,3 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return reverse('tag_posts_list', kwargs={'slug': self.slug})
-

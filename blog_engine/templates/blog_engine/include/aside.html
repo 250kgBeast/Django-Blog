@@ -1,0 +1,28 @@
+<aside class="col-xl-5 mt-5">
+    <div class="bg-white p-5 rounded border">
+        <header class="text-center mt-3 mb-3">
+            <h3 class="h6">
+                Search the blog
+            </h3>
+        </header>
+        <form action="" class="search-form">
+            <div class="bg-light rounded rounded-pill shadow-sm">
+        <div class="input-group">
+            <input type="search" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+            <div class="input-group-append">
+                <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+            </div>
+        </form>
+    </div>
+    <div class="bg-white p-5 rounded border mt-5">
+        <ul class="list-inline">
+            {% for tag in tags %}
+                <li class="list-inline-item">
+                    <a href="{{ tag.get_absolute_url }}" class="tag">#{{ tag.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>

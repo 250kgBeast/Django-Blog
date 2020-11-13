@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Post, Tag
-from ..views import PostsListView
+from ..views import PostsList
 
 
 class PostsListViewTest(TestCase):
@@ -18,10 +18,10 @@ class PostsListViewTest(TestCase):
 
     def test_posts_list_url_resolves_posts_list_view(self):
         view = resolve('/')
-        self.assertEqual(view.func.view_class, PostsListView)
+        self.assertEqual(view.func.view_class, PostsList)
 
     def test_posts_list_contains_links(self):
-        tag_detail_url = reverse('tag_detail', kwargs={'slug': self.tag.slug})
+        tag_detail_url = reverse('tag_posts_list', kwargs={'slug': self.tag.slug})
         tags_list_url = reverse('tags_list')
         post_detail_url = reverse('post_detail', kwargs={'slug': self.post.slug})
         self.assertContains(self.response, tag_detail_url)

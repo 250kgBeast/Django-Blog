@@ -14,9 +14,13 @@ class PostsList(ListView):
     model = Post
     template_name = 'blog_engine/posts_list.html'
     context_object_name = 'posts'
-    paginate_by = 2
+    paginate_by = 4
     ordering = ['-date_pub']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 class PostDetail(DetailView):
     model = Post
@@ -38,7 +42,8 @@ class TagPostList(ListView):
     """
     template_name = 'blog_engine/tag_posts_list.html'
     context_object_name = 'posts'
-    paginate_by = 2
+    paginate_by = 4
+    ordering = ['-date_pub']
 
     def get_queryset(self):
         self.tag = get_object_or_404(Tag, slug=self.kwargs['slug'])
@@ -47,6 +52,7 @@ class TagPostList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tag'] = self.tag
+        context['tags'] = Tag.objects.all()
         return context
 
 
