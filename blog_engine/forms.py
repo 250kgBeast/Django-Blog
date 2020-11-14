@@ -4,29 +4,22 @@ from .models import Post, Tag
 
 
 class PostCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(PostCreateForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs = {'class': 'form-control'}
-        self.fields['body'].widget.attrs = {
-            'class': 'form-control',
-            'rows': 5,
-            'cols': 15
-        }
-        self.fields['tags'] = forms.ModelMultipleChoiceField(
-            queryset=Tag.objects.all(),
-            widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-label'})
-        )
-
     class Meta:
         model = Post
         fields = ('title', 'body', 'tags')
 
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
+            'tags': forms.SelectMultiple(attrs={'class': 'form-control'})
+        }
+
 
 class TagCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(TagCreateForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs = {'class': 'form-control'}
-
     class Meta:
         model = Tag
         fields = ('title',)
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'})
+        }

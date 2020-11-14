@@ -7,17 +7,26 @@
 
 {% block content %}
     <div class="container-md">
-        <div class="form-group">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form }}
-                {% if object %}
-                    <button type="submit" class="btn btn-primary">Edit Post</button>
-                {% else %}
-                    <button type="submit" class="btn btn-primary mt-2">Create Post</button>
-                {% endif %}
-            </form>
-        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {% if field.errors %}
+                        <div class="alert alert-danger">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                {{ field.label }}
+                {{ field }}
+                </div>
+            {% endfor %}
+
+            {% if object %}
+                <button type="submit" class="btn btn-primary">Edit Post</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary mt-2">Create Post</button>
+            {% endif %}
+        </form>
     </div>
 {% endblock %}
 {% block scripit %}
