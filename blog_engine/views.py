@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from .models import Post, Tag
 from .forms import PostCreateForm, TagCreateForm
@@ -11,20 +12,35 @@ class PostsList(ListView):
     """
     List of all posts
     """
-    model = Post
     template_name = 'blog_engine/posts_list.html'
     context_object_name = 'posts'
     paginate_by = 4
     ordering = ['-date_pub']
+
+    def get_queryset(self):
+        search_query = self.request.GET.get('q', None)
+        queryset = Post.objects.all()
+        if search_query is not None:
+            queryset = queryset.filter(
+                Q(title__contains=search_query) |
+                Q(body__contains=search_query)
+            )
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
 
+
 class PostDetail(DetailView):
     model = Post
     template_name = 'blog_engine/post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 
 class TagsList(ListView):

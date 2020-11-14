@@ -1,6 +1,9 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
+from django.utils.html import mark_safe
+
+from markdown import markdown
 
 
 class Post(models.Model):
@@ -23,6 +26,9 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'slug': self.slug})
+
+    def get_body_as_markdown(self):
+        return mark_safe(markdown(self.body, safe_mode='escape'))
 
 
 class Tag(models.Model):

@@ -1,5 +1,8 @@
 {% extends 'blog_engine/base.html' %}
 
+{% block style %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
 
 
 {% block content %}
@@ -16,4 +19,10 @@
             </form>
         </div>
     </div>
+{% endblock %}
+{% block scripit %}
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("id_body") });
+    </script>
 {% endblock %}
