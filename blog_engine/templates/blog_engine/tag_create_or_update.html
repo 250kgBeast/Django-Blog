@@ -3,25 +3,25 @@
 {% block content %}
     <div class="container md">
         <form method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="form-group">
-                {% if field.errors %}
-                    <div class="alert alert-danger">
-                        {{ field.errors }}
-                    </div>
-                {% endif %}
-            {{ field.label }}
-            {{ field }}
-            </div>
-        {% endfor %}
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {% if field.errors %}
+                        <div class="alert alert-danger">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                {{ field.label }}
+                {{ field }}
+                </div>
+            {% endfor %}
 
-        {% if object %}
-            <button type="submit" class="btn btn-primary">Edit Tag</button>
-        {% else %}
-            <button type="submit" class="btn btn-primary mt-2">Create Tag</button>
-        {% endif %}
-    </form>
+            {% if object %}
+                <button type="submit" class="btn btn-primary">Edit Tag</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary mt-2">Create Tag</button>
+            {% endif %}
+        </form>
         </div>
     </div>
 {% endblock %}

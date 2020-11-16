@@ -19,7 +19,7 @@ class PostsList(ListView):
 
     def get_queryset(self):
         search_query = self.request.GET.get('q', None)
-        queryset = Post.objects.all()
+        queryset = Post.objects.all().order_by('-date_pub')
         if search_query is not None:
             queryset = queryset.filter(
                 Q(title__contains=search_query) |
