@@ -15,7 +15,7 @@ Create a Virtualenv
     virtualenv .venv -p python3
     source .venv/bin/activate
     ```
-# Install Requirements
+# Clone the repository and install the packages in the virtual env
   ```bash
   pip install -r requirements.txt
   ```
